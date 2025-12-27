@@ -1,0 +1,52 @@
+{
+  "name": "terminal-emulator",
+  "version": "1.0.0",
+  "description": "A modern cross-platform terminal emulator built with React, Redux, and Electron",
+  "main": "dist/backend/server.js",
+  "scripts": {
+    "build": "node tasks/build.js",
+    "dev": "npm run build && node dist/backend/server",
+    "electron": "npm run build && electron dist/electron",
+    "test": "mocha"
+  },
+  "config": {
+    "data-cover-never": [
+      "node_modules",
+      "test",
+      "src/**/*-tests.js"
+    ]
+  },
+  "keywords": [
+    "terminal",
+    "emulator",
+    "command",
+    "line",
+    "react",
+    "electron"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-react": "^7.23.0",
+    "@babel/register": "^7.23.0",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "chai": "^4.3.10",
+    "electron": "^28.0.0",
+    "jsdom": "^23.0.0",
+    "mocha": "^10.2.0",
+    "sass": "^1.69.0",
+    "sinon": "^17.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "immutable": "^4.3.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.9",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
+    "ws": "^8.14.0"
+  }
+}

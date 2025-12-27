@@ -1,0 +1,4 @@
+{
+  "require": ["./test/init.js", "./test/renderComponent.js"],
+  "spec": "src/**/*-tests.js"
+}

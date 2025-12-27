@@ -1,0 +1,233 @@
+// Modern Terminal UI Design
+
+// Color palette
+$bg-primary: #1e1e2e;
+$bg-secondary: #181825;
+$bg-tertiary: #11111b;
+$text-primary: #cdd6f4;
+$text-secondary: #a6adc8;
+$accent-blue: #89b4fa;
+$accent-green: #a6e3a1;
+$accent-yellow: #f9e2af;
+$accent-red: #f38ba8;
+$accent-purple: #cba6f7;
+$border-color: #313244;
+$shadow: rgba(0, 0, 0, 0.3);
+
+// Base styles
+html,
+body,
+section[role="main"] {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(135deg, $bg-tertiary 0%, $bg-secondary 100%);
+	font-family: "Consolas", "Monaco", "Courier New", monospace;
+	overflow: hidden;
+}
+
+// Terminal container
+.terminal {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
+
+	// Terminal header
+	&::before {
+		content: "Terminal Emulator";
+		display: block;
+		background: $bg-primary;
+		color: $text-secondary;
+		padding: 12px 20px;
+		border-radius: 8px 8px 0 0;
+		border: 1px solid $border-color;
+		border-bottom: none;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.5px;
+		box-shadow: 0 2px 8px $shadow;
+		position: relative;
+
+		// Traffic light buttons (macOS style)
+		&::after {
+			content: "";
+			position: absolute;
+			left: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background: $accent-red;
+			box-shadow: 18px 0 0 $accent-yellow, 36px 0 0 $accent-green;
+		}
+	}
+
+	// Main terminal body
+	.terminal__wrapper {
+		flex: 1;
+		background: $bg-primary;
+		border: 1px solid $border-color;
+		border-radius: 0 0 8px 8px;
+		padding: 20px;
+		overflow-y: auto;
+		box-shadow: 0 4px 16px $shadow;
+		display: flex;
+		flex-direction: column;
+
+		// Custom scrollbar
+		&::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: $bg-secondary;
+			border-radius: 5px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: $border-color;
+			border-radius: 5px;
+
+			&:hover {
+				background: lighten($border-color, 10%);
+			}
+		}
+	}
+
+	// Output list
+	.terminal__output {
+		list-style-type: none;
+		padding: 0;
+		margin: 0 0 20px 0;
+		flex: 1;
+
+		.output__item {
+			margin-bottom: 8px;
+			animation: fadeIn 0.3s ease-in;
+
+			pre {
+				margin: 0;
+				padding: 8px 12px;
+				background: $bg-secondary;
+				border-left: 3px solid $accent-blue;
+				border-radius: 4px;
+				color: $text-primary;
+				font-family: inherit;
+				font-size: 14px;
+				line-height: 1.6;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				transition: all 0.2s ease;
+
+				&:hover {
+					background: lighten($bg-secondary, 2%);
+					border-left-color: $accent-purple;
+					transform: translateX(2px);
+				}
+			}
+		}
+	}
+
+	// Input container
+	.terminal__input-container {
+		display: flex;
+		align-items: center;
+		background: $bg-secondary;
+		border: 2px solid $border-color;
+		border-radius: 6px;
+		padding: 12px 16px;
+		transition: all 0.3s ease;
+
+		&:focus-within {
+			border-color: $accent-blue;
+			box-shadow: 0 0 0 3px rgba($accent-blue, 0.1);
+		}
+
+		// Prompt symbol
+		&::before {
+			content: "❯";
+			color: $accent-green;
+			font-size: 18px;
+			font-weight: bold;
+			margin-right: 12px;
+			animation: pulse 2s ease-in-out infinite;
+		}
+	}
+
+	// Input field
+	.terminal__input {
+		flex: 1;
+		background: transparent;
+		border: 0;
+		font-family: inherit;
+		font-size: 15px;
+		color: $text-primary;
+		outline: none;
+		caret-color: $accent-green;
+
+		&::placeholder {
+			color: $text-secondary;
+			opacity: 0.5;
+		}
+
+		&:focus::placeholder {
+			opacity: 0.3;
+		}
+	}
+}
+
+// Animations
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-5px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+// Responsive design
+@media (max-width: 768px) {
+	.terminal {
+		padding: 10px;
+
+		&::before {
+			padding: 10px 15px;
+			font-size: 12px;
+		}
+
+		.terminal__wrapper {
+			padding: 15px;
+		}
+
+		.terminal__output .output__item pre {
+			font-size: 13px;
+			padding: 6px 10px;
+		}
+
+		.terminal__input {
+			font-size: 14px;
+		}
+	}
+}
